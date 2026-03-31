@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { createPortal } from "react-dom";
-import { PhoneOff, MicOff, Mic, X } from "lucide-react";
+import { PhoneOff, MicOff, Mic, X, Hand } from "lucide-react";
 import { stripMarkdownForSpeech, chunkText, selectBestVoice, initVoices } from "@/lib/tts";
 
 type CallState = "starting" | "listening" | "processing" | "speaking" | "error";
@@ -106,12 +106,8 @@ export function VoiceCall({ onClose, onSendMessage, lastBotMessage, isLoading }:
     setCallState("speaking");
     interruptedRef.current = false;
 
-    // KEEP recognition running so user can interrupt by speaking
-    // (don't stop it here — the onresult handler will cancel speech if user talks)
-    const r = recognitionRef.current;
-    if (r) {
-      try { r.start(); } catch {} // ensure it's running
-    }
+    // Stop recognition while bot speaks to avoid picking up bot's own voice
+    try { recognitionRef.current?.stop(); } catch {}
 
     const cleaned = stripMarkdownForSpeech(text);
     if (!cleaned) { doListen(); return; }
@@ -210,7 +206,8 @@ export function VoiceCall({ onClose, onSendMessage, lastBotMessage, isLoading }:
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     rec.onresult = (e: any) => {
-      if (isMutedRef.current || callStateRef.current === "processing") return;
+      // Ignore input while muted, processing, or bot is speaking
+      if (isMutedRef.current || callStateRef.current === "processing" || callStateRef.current === "speaking") return;
 
       let text = "";
       for (let i = 0; i < e.results.length; i++) {
@@ -222,14 +219,6 @@ export function VoiceCall({ onClose, onSendMessage, lastBotMessage, isLoading }:
       console.log("[vc] Heard:", text);
       accumulatedTextRef.current = text;
       setLiveText(text);
-
-      // If user speaks while bot is talking, interrupt immediately
-      if (callStateRef.current === "speaking") {
-        console.log("[vc] Interrupting bot — user is speaking");
-        interruptedRef.current = true;
-        window.speechSynthesis.cancel();
-        setCallState("listening");
-      }
 
       if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
       silenceTimerRef.current = setTimeout(() => doSendRef.current(), 1200);
@@ -286,6 +275,13 @@ export function VoiceCall({ onClose, onSendMessage, lastBotMessage, isLoading }:
       if (responseTimerRef.current) clearTimeout(responseTimerRef.current);
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const handleInterrupt = () => {
+    console.log("[vc] User interrupted via button");
+    interruptedRef.current = true;
+    window.speechSynthesis.cancel();
+    doListen();
+  };
 
   const endCall = () => {
     activeRef.current = false;
@@ -393,16 +389,31 @@ export function VoiceCall({ onClose, onSendMessage, lastBotMessage, isLoading }:
       {/* Controls */}
       <div style={{ flexShrink: 0, padding: "16px 24px 32px", textAlign: "center" }}>
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 24 }}>
-          <button onClick={() => setIsMuted(m => !m)}
-            style={{
-              width: 56, height: 56, borderRadius: "50%", border: isMuted ? "1px solid rgba(245,158,11,0.4)" : "1px solid rgba(255,255,255,0.2)",
-              background: isMuted ? "rgba(245,158,11,0.15)" : "rgba(255,255,255,0.1)",
-              color: isMuted ? "#f59e0b" : "rgba(255,255,255,0.7)", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center",
-            }}
-            aria-label={isMuted ? "Unmute" : "Mute"}
-          >
-            {isMuted ? <MicOff size={22} /> : <Mic size={22} />}
-          </button>
+          {callState === "speaking" ? (
+            <button onClick={handleInterrupt}
+              style={{
+                width: 56, height: 56, borderRadius: "50%", border: "1px solid rgba(239,68,68,0.5)",
+                background: "rgba(239,68,68,0.2)",
+                color: "#f87171", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center",
+                animation: "pulse 1.5s infinite",
+              }}
+              aria-label="Interrupt and speak"
+              title="Tap to interrupt"
+            >
+              <Hand size={22} />
+            </button>
+          ) : (
+            <button onClick={() => setIsMuted(m => !m)}
+              style={{
+                width: 56, height: 56, borderRadius: "50%", border: isMuted ? "1px solid rgba(245,158,11,0.4)" : "1px solid rgba(255,255,255,0.2)",
+                background: isMuted ? "rgba(245,158,11,0.15)" : "rgba(255,255,255,0.1)",
+                color: isMuted ? "#f59e0b" : "rgba(255,255,255,0.7)", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center",
+              }}
+              aria-label={isMuted ? "Unmute" : "Mute"}
+            >
+              {isMuted ? <MicOff size={22} /> : <Mic size={22} />}
+            </button>
+          )}
           <button onClick={endCall}
             style={{
               width: 64, height: 64, borderRadius: "50%", background: "#dc2626", border: "none",

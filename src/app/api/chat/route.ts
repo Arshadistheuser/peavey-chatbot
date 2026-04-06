@@ -19,6 +19,9 @@ export const maxDuration = 60;
 // Simple greeting detection — don't force tool calls for greetings
 const GREETING_PATTERNS = /^(hi|hello|hey|howdy|sup|yo|good\s*(morning|afternoon|evening)|thanks|thank you|bye|goodbye)[\s!?.]*$/i;
 
+// Customer/CRM query detection — force lookupCustomer tool
+const CUSTOMER_PATTERNS = /\b(CUST-\d+|ORD-\d+|look\s*up\s*customer|my\s*account|my\s*order|my\s*warranty|my\s*purchase|customer\s*id|order\s*number|order\s*status)\b/i;
+
 export async function POST(req: Request) {
   const ip =
     req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
@@ -53,6 +56,7 @@ export async function POST(req: Request) {
   const lastMessage = messages[messages.length - 1];
   let userContent = "";
   let isGreeting = false;
+  let isCustomerQuery = false;
 
   if (lastMessage?.role === "user") {
     userContent = (lastMessage.parts || [])
@@ -72,6 +76,7 @@ export async function POST(req: Request) {
     const cleanContent = validation.sanitized || userContent;
 
     isGreeting = GREETING_PATTERNS.test(cleanContent);
+    isCustomerQuery = CUSTOMER_PATTERNS.test(cleanContent);
 
     // Store session and message in background (with logging on failure)
     if (sessionId) {
@@ -108,7 +113,7 @@ export async function POST(req: Request) {
       compareProducts,
       lookupCustomer,
     },
-    toolChoice: "auto",
+    toolChoice: isCustomerQuery ? { type: "tool" as const, toolName: "lookupCustomer" } : "auto",
     maxOutputTokens: 4000,
     stopWhen: stepCountIs(20),
     onFinish: async ({ text }) => {

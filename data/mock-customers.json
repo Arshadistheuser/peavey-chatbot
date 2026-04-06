@@ -1,0 +1,110 @@
+[
+  {
+    "id": "CUST-10042",
+    "name": "Jake Morrison",
+    "email": "jake.morrison@gmail.com",
+    "phone": "(615) 555-0134",
+    "location": "Nashville, TN",
+    "memberSince": "2019-03-15",
+    "tier": "Gold",
+    "totalSpent": 4829.97,
+    "orders": [
+      { "orderId": "ORD-78234", "date": "2024-11-02", "product": "6505 1992 Original Head", "sku": "03614080", "price": 1699.99, "status": "Delivered", "warranty": "2027-11-02" },
+      { "orderId": "ORD-65112", "date": "2023-06-18", "product": "6505 4x12 Cabinet", "sku": "03614120", "price": 899.99, "status": "Delivered", "warranty": "2026-06-18" },
+      { "orderId": "ORD-52009", "date": "2022-01-10", "product": "Classic 20 Combo", "sku": "03614200", "price": 979.99, "status": "Delivered", "warranty": "Expired" },
+      { "orderId": "ORD-44781", "date": "2021-08-22", "product": "HP 2 Electric Guitar - Moonburst", "sku": "03019870", "price": 1249.99, "status": "Delivered", "warranty": "Expired" }
+    ],
+    "supportTickets": [
+      { "ticketId": "TKT-3421", "date": "2024-12-05", "subject": "6505 tube replacement inquiry", "status": "Resolved" },
+      { "ticketId": "TKT-2890", "date": "2023-09-14", "subject": "Cabinet buzzing at high volume", "status": "Resolved" }
+    ],
+    "notes": "VIP customer. Touring musician. Prefers tube amps. Has referred 3 other customers."
+  },
+  {
+    "id": "CUST-10187",
+    "name": "Sarah Chen",
+    "email": "sarah.chen@outlook.com",
+    "phone": "(212) 555-0298",
+    "location": "New York, NY",
+    "memberSince": "2021-07-22",
+    "tier": "Silver",
+    "totalSpent": 2145.98,
+    "orders": [
+      { "orderId": "ORD-81045", "date": "2025-01-15", "product": "PV 14AT Mixer", "sku": "03612850", "price": 549.99, "status": "Delivered", "warranty": "2028-01-15" },
+      { "orderId": "ORD-72340", "date": "2024-03-08", "product": "PVXp 12 Powered Speaker (pair)", "sku": "03617100", "price": 1199.98, "status": "Delivered", "warranty": "2027-03-08" },
+      { "orderId": "ORD-69001", "date": "2023-11-20", "product": "PV-MSP1 Microphone Pack", "sku": "00579990", "price": 396.01, "status": "Delivered", "warranty": "2026-11-20" }
+    ],
+    "supportTickets": [
+      { "ticketId": "TKT-4102", "date": "2025-02-01", "subject": "Bluetooth pairing issue on PV14AT", "status": "Open" }
+    ],
+    "notes": "Runs a small event production company. Interested in upgrading to digital mixer."
+  },
+  {
+    "id": "CUST-10305",
+    "name": "Marcus Williams",
+    "email": "mwilliams.bass@yahoo.com",
+    "phone": "(404) 555-0176",
+    "location": "Atlanta, GA",
+    "memberSince": "2020-11-03",
+    "tier": "Gold",
+    "totalSpent": 3567.96,
+    "orders": [
+      { "orderId": "ORD-79500", "date": "2024-12-01", "product": "Milestone Bass Guitar - Ivory", "sku": "03018420", "price": 249.99, "status": "Shipped", "warranty": "2027-12-01" },
+      { "orderId": "ORD-71200", "date": "2024-02-14", "product": "MiniMAX 500W Bass Head", "sku": "03608210", "price": 649.99, "status": "Delivered", "warranty": "2027-02-14" },
+      { "orderId": "ORD-60055", "date": "2023-04-30", "product": "Headliner 410 Bass Cabinet", "sku": "03008680", "price": 549.99, "status": "Delivered", "warranty": "2026-04-30" },
+      { "orderId": "ORD-58200", "date": "2023-02-11", "product": "Vypyr X3 Modeling Amp", "sku": "03617850", "price": 449.99, "status": "Delivered", "warranty": "2026-02-11" },
+      { "orderId": "ORD-45300", "date": "2021-09-05", "product": "MAX 115 Bass Combo", "sku": "03608050", "price": 419.99, "status": "Returned", "warranty": "N/A" },
+      { "orderId": "ORD-44100", "date": "2021-06-18", "product": "Raptor Plus Electric Guitar - Red", "sku": "03019150", "price": 249.99, "status": "Delivered", "warranty": "Expired" }
+    ],
+    "supportTickets": [
+      { "ticketId": "TKT-4250", "date": "2025-03-10", "subject": "MiniMAX head making crackling noise", "status": "Open" },
+      { "ticketId": "TKT-3100", "date": "2024-01-22", "subject": "Warranty claim for MAX 115 - speaker blown", "status": "Resolved - Returned" }
+    ],
+    "notes": "Bass player in a gospel/R&B band. Plays 3-4 gigs/week. Loyal customer but had a return issue."
+  },
+  {
+    "id": "CUST-10421",
+    "name": "Emily Rodriguez",
+    "email": "emily.r@musicschool.edu",
+    "phone": "(512) 555-0443",
+    "location": "Austin, TX",
+    "memberSince": "2022-09-01",
+    "tier": "Standard",
+    "totalSpent": 1879.97,
+    "orders": [
+      { "orderId": "ORD-80100", "date": "2025-01-28", "product": "Ecoustic E208 Acoustic Amp", "sku": "03615920", "price": 329.99, "status": "Processing", "warranty": "Pending" },
+      { "orderId": "ORD-67800", "date": "2023-10-15", "product": "Delta Woods DW-2 CE Acoustic Guitar", "sku": "03020100", "price": 599.99, "status": "Delivered", "warranty": "2026-10-15" },
+      { "orderId": "ORD-55400", "date": "2022-11-20", "product": "Composer Concert Classical Guitar", "sku": "03020350", "price": 299.99, "status": "Delivered", "warranty": "2025-11-20" },
+      { "orderId": "ORD-54900", "date": "2022-10-05", "product": "MA-5 Mini Acoustic Amp", "sku": "03615800", "price": 649.99, "status": "Delivered", "warranty": "2025-10-05" }
+    ],
+    "supportTickets": [],
+    "notes": "Music teacher. Buys for her school program. Potential bulk buyer."
+  },
+  {
+    "id": "CUST-10550",
+    "name": "Dave Kowalski",
+    "email": "davethedrummer@hotmail.com",
+    "phone": "(773) 555-0891",
+    "location": "Chicago, IL",
+    "memberSince": "2018-04-12",
+    "tier": "Platinum",
+    "totalSpent": 8234.93,
+    "orders": [
+      { "orderId": "ORD-82000", "date": "2025-03-05", "product": "Invective.MH Mini Head", "sku": "03614350", "price": 999.99, "status": "Delivered", "warranty": "2028-03-05" },
+      { "orderId": "ORD-76500", "date": "2024-08-20", "product": "6505 Piranha Micro Head", "sku": "03614300", "price": 399.99, "status": "Delivered", "warranty": "2027-08-20" },
+      { "orderId": "ORD-68900", "date": "2023-11-01", "product": "XR-S 1500W Powered Mixer", "sku": "03612400", "price": 1299.99, "status": "Delivered", "warranty": "2026-11-01" },
+      { "orderId": "ORD-61200", "date": "2023-05-15", "product": "SP 4BX Speaker (pair)", "sku": "00497220", "price": 599.98, "status": "Delivered", "warranty": "2026-05-15" },
+      { "orderId": "ORD-50100", "date": "2022-03-01", "product": "Vypyr X2 Modeling Amp", "sku": "03617800", "price": 349.99, "status": "Delivered", "warranty": "2025-03-01" },
+      { "orderId": "ORD-38900", "date": "2020-07-14", "product": "6505 Plus 112 Combo", "sku": "03614150", "price": 1199.99, "status": "Delivered", "warranty": "Expired" },
+      { "orderId": "ORD-31200", "date": "2019-01-28", "product": "Bandit 112 Combo", "sku": "03613600", "price": 399.99, "status": "Delivered", "warranty": "Expired" },
+      { "orderId": "ORD-28500", "date": "2018-06-10", "product": "Wolfgang Standard Guitar", "sku": "03019500", "price": 1499.99, "status": "Delivered", "warranty": "Expired" },
+      { "orderId": "ORD-28100", "date": "2018-04-20", "product": "Sanpera II Footswitch", "sku": "03017440", "price": 249.99, "status": "Delivered", "warranty": "Expired" }
+    ],
+    "supportTickets": [
+      { "ticketId": "TKT-4300", "date": "2025-03-20", "subject": "Invective MH firmware update question", "status": "Open" },
+      { "ticketId": "TKT-2200", "date": "2022-08-10", "subject": "Vypyr X2 preset not saving", "status": "Resolved" },
+      { "ticketId": "TKT-1100", "date": "2020-12-01", "subject": "6505+ tube bias adjustment", "status": "Resolved" }
+    ],
+    "notes": "Long-time Peavey loyalist. Owns a home studio. Runs a YouTube gear review channel (12K subscribers). Great candidate for brand ambassador program."
+  }
+]

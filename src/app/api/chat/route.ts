@@ -9,6 +9,7 @@ import { SYSTEM_PROMPT } from "@/lib/system-prompt";
 import { searchManuals } from "@/lib/tools/search-manuals";
 import { findProductImages } from "@/lib/tools/find-images";
 import { compareProducts } from "@/lib/tools/compare-products";
+import { lookupCustomer } from "@/lib/tools/lookup-customer";
 import { checkRateLimit } from "@/lib/rate-limit";
 import { validateInput, detectProducts } from "@/lib/guardrails";
 import { createSession, addMessage, updateProductsDiscussed } from "@/lib/chat-storage";
@@ -105,6 +106,7 @@ export async function POST(req: Request) {
       searchManuals,
       findProductImages,
       compareProducts,
+      lookupCustomer,
     },
     toolChoice: "auto",
     maxOutputTokens: 4000,

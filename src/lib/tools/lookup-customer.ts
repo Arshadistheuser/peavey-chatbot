@@ -78,11 +78,18 @@ export const lookupCustomer = tool({
   parameters: z.object({
     query: z
       .string()
+      .default("")
       .describe(
-        "The customer identifier — can be a customer ID (e.g. CUST-10042), name, email, phone number, or order ID (e.g. ORD-78234)"
+        "The customer identifier to search for. REQUIRED. Can be a customer ID (e.g. CUST-10042), name, email, phone number, or order ID (e.g. ORD-78234). Extract this from the user's message."
       ),
   }),
   execute: async ({ query }) => {
+    if (!query || !query.trim()) {
+      return {
+        found: false,
+        message: "No search query provided. Please specify a customer ID (CUST-XXXXX), name, email, phone, or order ID (ORD-XXXXX).",
+      };
+    }
     const customer = searchCustomers(query);
 
     if (!customer) {

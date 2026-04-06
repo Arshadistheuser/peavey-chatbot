@@ -103,9 +103,15 @@ export async function POST(req: Request) {
     }
   }
 
+  // If this is a customer query, add a strong hint to the system prompt
+  let systemPrompt = SYSTEM_PROMPT;
+  if (isCustomerQuery) {
+    systemPrompt += `\n\n## IMPORTANT — CURRENT REQUEST IS A CUSTOMER LOOKUP\nThe user is asking about a customer or order. You MUST call the lookupCustomer tool with the identifier from their message. Extract the CUST-ID, ORD-ID, name, email, or phone from their message and pass it as the "query" parameter.`;
+  }
+
   const result = streamText({
     model: google("gemini-2.5-flash"),
-    system: SYSTEM_PROMPT,
+    system: systemPrompt,
     messages: await convertToModelMessages(messages),
     tools: {
       searchManuals,
@@ -113,7 +119,7 @@ export async function POST(req: Request) {
       compareProducts,
       lookupCustomer,
     },
-    toolChoice: isCustomerQuery ? { type: "tool" as const, toolName: "lookupCustomer" } : "auto",
+    toolChoice: "auto",
     maxOutputTokens: 4000,
     stopWhen: stepCountIs(20),
     onFinish: async ({ text }) => {
